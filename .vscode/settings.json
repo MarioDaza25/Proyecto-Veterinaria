@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "Dominio",
     "Api",
-    "Persistencia"
+    "Persistencia",
+    "Aplicacion"
   ]
 }
