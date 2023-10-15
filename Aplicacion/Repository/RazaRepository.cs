@@ -4,12 +4,11 @@ using Persistencia;
 
 namespace Aplicacion.Repository;
 
-public class RolRepository : GenericRepository<Rol>, IRol
+public class RazaRepository : GenericRepository<Raza>, IRaza
 {
     private readonly DbAppContext _context;
-    public RolRepository(DbAppContext context) : base(context)
+    public RazaRepository(DbAppContext context) : base(context)
     {
         _context = context;
     }
-
 }
