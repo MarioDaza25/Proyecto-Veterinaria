@@ -9,6 +9,7 @@ public interface IUnitOfWork
     ILaboratorio Laboratorios { get; }
     IMascota Mascotas { get; }
     IMedicamento Medicamentos { get; }
+    IMovimiento Movimientos { get; }
     IPropietario Propietarios { get; }
     IProveedor Proveedores { get; }
     IRaza Razas { get; }
