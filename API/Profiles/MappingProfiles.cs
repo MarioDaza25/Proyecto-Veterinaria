@@ -18,7 +18,7 @@ public class MappingProfiles : Profile
         CreateMap<Movimiento, MovimientoDto>().ReverseMap();
         CreateMap<Propietario, PropietarioDto>().ReverseMap();
         CreateMap<Proveedor, ProveedorDto>().ReverseMap();
-        CreateMap<RazaDto, RazaDto>().ReverseMap();
+        CreateMap<Raza, RazaDto>().ReverseMap();
         CreateMap<TipoMovimiento, TipoMovDto>().ReverseMap();
         CreateMap<Veterinario, VeterinarioDto>().ReverseMap();
 

@@ -1,5 +1,3 @@
-using Dominio.Entidades;
-
 namespace API.Dtos;
 public class MedicamentoDto
 {
@@ -7,6 +5,6 @@ public class MedicamentoDto
     public string Nombre { get; set; }
     public double Cantidad { get; set; }
     public decimal Precio { get; set; }
-    public Laboratorio Laboratorio { get; set; }
+    public LaboratorioDto Laboratorio { get; set; }
 
 }
