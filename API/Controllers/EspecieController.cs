@@ -50,4 +50,20 @@ public class EspecieController : BaseApiController
         var mascotas = await _unitOfWork.Especies.MascotaXEspecie();
         return _mapper.Map<List<EspecieXRazaDto>>(mascotas);
     } 
+
+
+    [HttpDelete("{nombreEspecie}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Delete(string nombreEspecie)
+    {
+        var especie = await _unitOfWork.Especies.GetByIdAsync(nombreEspecie);
+        if (especie == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Especies.Remove(especie);
+        await _unitOfWork.SaveAsync();
+        return NoContent();
+    }
 }

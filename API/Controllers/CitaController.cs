@@ -29,6 +29,18 @@ public class CitaController : BaseApiController
     }
 
 
-    
-
+    [HttpDelete("{nombreMascota}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Delete(string nombreMascota)
+    {
+        var cita = await _unitOfWork.Citas.GetByIdAsync(nombreMascota);
+        if (cita == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Citas.Remove(cita);
+        await _unitOfWork.SaveAsync();
+        return NoContent();
+    }
 }
