@@ -1,4 +1,4 @@
-#Proyecto de Administración para Veterinaria : :cat: :dog:
+# Proyecto de Administración para Veterinaria : :cat: :dog:
 
 El proyecto de desarrollo de software tiene como objetivo principal la creación de un sistema de administración para una veterinaria. Este sistema permitirá a los administradores y al personal de la veterinaria gestionar de manera eficiente y efectiva todas las actividades relacionadas con la atención de mascotas y la gestión de clientes.
 
