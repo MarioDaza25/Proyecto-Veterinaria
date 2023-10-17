@@ -2,7 +2,6 @@ using System.Reflection;
 using API.Extensions;
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Persistencia;
 var builder = WebApplication.CreateBuilder(args);
 

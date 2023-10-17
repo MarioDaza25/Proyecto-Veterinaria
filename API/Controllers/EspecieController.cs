@@ -25,4 +25,29 @@ public class EspecieController : BaseApiController
         var listaEspecies = _mapper.Map<List<EspecieDto>>(registros);
         return new Pager<EspecieDto>(listaEspecies,totalRegistros,especieParams.PageIndex,especieParams.PageSize,especieParams.Search);
     }
+
+
+    //Mascotas que se encuentren registradas cuya especie sea felina.
+    [HttpGet("ConMascotas/{especie}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EspecieXRazaDto>>> MascotaXUnaEspecie(string especie)
+    {
+        if (especie == "")
+        {
+            return BadRequest("Ingrese una Especie.");
+        }
+        var mascotas = await _unitOfWork.Especies.MascotaXUnaEspecie(especie);
+        return _mapper.Map<List<EspecieXRazaDto>>(mascotas);
+    } 
+
+    //Listar todas las mascotas agrupadas por especie..
+    [HttpGet("ConMascotas")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EspecieXRazaDto>>> MascotaXEspecie()
+    {
+        var mascotas = await _unitOfWork.Especies.MascotaXEspecie();
+        return _mapper.Map<List<EspecieXRazaDto>>(mascotas);
+    } 
 }

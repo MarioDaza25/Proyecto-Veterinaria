@@ -17,6 +17,7 @@ namespace Aplicacion.Repository
             _context = context;
         }
 
+
         public override async Task<(int totalRegistros, IEnumerable<Medicamento> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)
         {
             var totalRegistros = await _context.Set<Medicamento>().CountAsync();
@@ -25,6 +26,15 @@ namespace Aplicacion.Repository
                 .Take(pageSize)
                 .ToListAsync();
             return (totalRegistros, registros);
+        }
+
+
+        //Medicamentos que tenga un precio de venta mayor a 50000
+        public async Task<IEnumerable<Medicamento>> MedicamentoXPrecio(decimal precio)
+        {
+            return await _context.Medicamentos
+                        .Where(m => m.Precio >= precio)
+                        .ToListAsync();
         }
 
     }

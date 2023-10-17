@@ -25,4 +25,14 @@ public class MedicamentoController : BaseApiController
         var listaMed = _mapper.Map<List<MedicamentoDto>>(registros);
         return new Pager<MedicamentoDto>(listaMed,totalRegistros,MedParams.PageIndex,MedParams.PageSize,MedParams.Search);
     }
+
+    //Medicamentos que tenga un precio de venta mayor a 50000
+    [HttpGet("PrecioMayorA/{precio}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<MedicaNombreDto>>> MedicamentoXPrecio(decimal precio)
+    {
+        var medicamento = await _unitOfWork.Medicamentos.MedicamentoXPrecio(precio);
+        return _mapper.Map<List<MedicaNombreDto>>(medicamento);
+    } 
 }

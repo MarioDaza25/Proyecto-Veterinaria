@@ -1,5 +1,8 @@
 using API.Dtos;
+using API.Helpers;
 using API.Services;
+using AutoMapper;
+using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -7,10 +10,14 @@ namespace API.Controllers;
     
 public class UsuarioController : BaseApiController
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IUserService _userService;
-    public UsuarioController(IUserService userService)
+    private readonly IMapper _mapper;
+    public UsuarioController(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _userService = userService;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     [HttpPost("Registro")]
@@ -54,5 +61,16 @@ public class UsuarioController : BaseApiController
             Expires = DateTime.UtcNow.AddDays(10),
         };
         Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+    }
+
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<UsuarioDto>>> Get([FromQuery] Params aParams)
+    {
+        var (totalRegistros, registros) = await _unitOfWork.Usuarios.GetAllAsync(aParams.PageIndex,aParams.PageSize,aParams.Search);
+        var lista = _mapper.Map<List<UsuarioDto>>(registros);
+        return new Pager<UsuarioDto>(lista,totalRegistros,aParams.PageIndex,aParams.PageSize,aParams.Search);
     }
 }

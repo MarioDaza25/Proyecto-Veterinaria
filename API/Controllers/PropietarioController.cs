@@ -25,4 +25,15 @@ public class PropietarioController : BaseApiController
         var listaPropi = _mapper.Map<List<PropietarioDto>>(registros);
         return new Pager<PropietarioDto>(listaPropi,totalRegistros,propParams.PageIndex,propParams.PageSize,propParams.Search);
     }
+
+
+    //Listar los propietarios y sus mascotas.
+    [HttpGet("ConMascotas")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PropConMascotaDto>>> PropietarioConMascotas()
+    {
+        var propietario = await _unitOfWork.Propietarios.PropietarioConMascotas();
+        return _mapper.Map<List<PropConMascotaDto>>(propietario);
+    } 
 }
