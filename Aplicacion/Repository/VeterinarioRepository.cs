@@ -16,9 +16,7 @@ public class VeterinarioRepository : GenericRepository<Veterinario>, IVeterinari
     //Veterinarios cuya especialidad sea Cirujano vascular.
     public async Task<IEnumerable<Veterinario>> VeterinariosXEspecilidad(string especialidad)
     {
-        return await _context.Veterinarios
-                    .Where(v => v.Especialidad.ToUpper() == especialidad.ToUpper())
-                    .ToListAsync();
+        return await _context.Veterinarios.Where(v => v.Especialidad.ToUpper() == especialidad.ToUpper()).ToListAsync();
     }
 
 
@@ -32,12 +30,15 @@ public class VeterinarioRepository : GenericRepository<Veterinario>, IVeterinari
     }
 
     
-
-
     public override async Task<(int totalRegistros, IEnumerable<Veterinario> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)
     {
-        var totalRegistros = await _context.Set<Veterinario>().CountAsync();
-        var registros = await _context.Set<Veterinario>()
+        var query = _context.Veterinarios as IQueryable<Veterinario>;
+        if(!string.IsNullOrEmpty(_search))
+        {
+            query = query.Where(p => p.Nombre.ToUpper() == _search.ToUpper());
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

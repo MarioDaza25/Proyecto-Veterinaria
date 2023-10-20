@@ -24,10 +24,15 @@ public class LaboratorioRepository : GenericRepository<Laboratorio>, ILaboratori
 
     public override async Task<(int totalRegistros, IEnumerable<Laboratorio> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)
     {
-        var totalRegistros = await _context.Set<Laboratorio>().CountAsync();
-        var registros = await _context.Set<Laboratorio>()
+        var query = _context.Laboratorios as IQueryable<Laboratorio>;
+        if(!string.IsNullOrEmpty(_search))
+        {
+            query = query.Where(p => p.Nombre.ToUpper() == _search.ToUpper());
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
             .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
+            .Take(pageSize) 
             .ToListAsync();
         return (totalRegistros, registros);
     }

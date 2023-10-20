@@ -15,8 +15,13 @@ public class TipoMovRepository : GenericRepository<TipoMovimiento>, ITipoMovimie
 
     public override async Task<(int totalRegistros, IEnumerable<TipoMovimiento> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)
     {
-        var totalRegistros = await _context.Set<TipoMovimiento>().CountAsync();
-        var registros = await _context.Set<TipoMovimiento>()
+        var query = _context.TipoMovimientos as IQueryable<TipoMovimiento>;
+        if(!string.IsNullOrEmpty(_search))
+        {
+            query = query.Where(p => p.Descripcion.ToUpper() == _search.ToUpper());
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

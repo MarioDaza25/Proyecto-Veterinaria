@@ -13,16 +13,30 @@ public class CitaRepository : GenericRepository<Cita>, ICita
         _context = context;
     }
 
+    public override async Task<IEnumerable<Cita>> GetAllAsync()
+    {
+        return await _context.Set<Cita>()
+                        .Include(c => c.Mascota).ThenInclude(m => m.Raza).ThenInclude(r => r.Especie)
+                        .Include(c => c.Mascota).ThenInclude(m => m.Propietario)
+                        .Include(c => c.Veterinario)
+                        .ToListAsync();
+    }
 
     public override async Task<(int totalRegistros, IEnumerable<Cita> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)
     {
-        var totalRegistros = await _context.Set<Cita>().CountAsync();
-        var registros = await _context.Set<Cita>()
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
-            .Include(c => c.Mascota).ThenInclude(m =>m.Propietario)
-            .Include(c => c.Veterinario)
-            .ToListAsync();
+        var query = _context.Citas as IQueryable<Cita>;
+        if(!string.IsNullOrEmpty(_search))
+        {
+            query = query.Where(p => p.Mascota.Nombre.ToUpper() == _search.ToUpper());
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                .Include(c => c.Mascota).ThenInclude(m => m.Raza).ThenInclude(r => r.Especie)
+                .Include(c => c.Mascota).ThenInclude(m =>m.Propietario)
+                .Include(c => c.Veterinario)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         return (totalRegistros, registros);
     }
 }
