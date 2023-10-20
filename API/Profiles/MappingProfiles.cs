@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Dtos.DtosPost;
 using AutoMapper;
 using Dominio.Entidades;
 
@@ -34,7 +35,27 @@ public class MappingProfiles : Profile
           CreateMap<Cita, CitaMascoDto>().ReverseMap();
           CreateMap<Veterinario, VeterConMascoDto>().ReverseMap();
           CreateMap<Usuario, UsuarioDto>().ReverseMap();
+          CreateMap<Mascota, MascotaConPropietarioDto>().ReverseMap();
+          CreateMap<Raza, MascotaXRazaDto>().ReverseMap();
+          CreateMap<TotalMascotasXRaza, TotalMascotasXRazaDto>().ReverseMap();
+          CreateMap<MovimientosConTotal, MovimientosConTotalDto>().ReverseMap();
+          CreateMap<Medicamento, MedicamentoConProvDto>().ReverseMap();
+          CreateMap<MedicamentoProveedor, MedicProvDto>().ReverseMap();
           
+          CreateMap<Cita, CitaPDto>().ReverseMap();
+          CreateMap<Especie, EspeciePDto>().ReverseMap();
+          CreateMap<FormulaMedica, FormulaMedicaPDto>().ReverseMap();
+          CreateMap<Laboratorio, LaboratorioPDto>().ReverseMap();
+          CreateMap<Mascota, MascotaPDto>().ReverseMap();
+          CreateMap<Medicamento, MedicamentoPDto>().ReverseMap();
+          CreateMap<Movimiento, MovimientoPDto>().ReverseMap();
+          CreateMap<Propietario, PropietarioPDto>().ReverseMap();
+          CreateMap<Proveedor, ProveedorPDto>().ReverseMap();
+          CreateMap<Raza, RazaPDto>().ReverseMap();
+          CreateMap<TipoMovimiento, TipMovPDto>().ReverseMap();
+          CreateMap<Veterinario, VeterinarioPDto>().ReverseMap();
+           CreateMap<Usuario, UsuarioPDto>().ReverseMap();
+           CreateMap<DetalleMovimiento, DetalleMovPDto>().ReverseMap();
 
      }
 }
