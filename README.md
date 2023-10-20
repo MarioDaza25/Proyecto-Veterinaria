@@ -47,42 +47,42 @@ Ejecución de la aplicacion desde la raiz del proyecto utilizando swagger.
 ```csharp
 http://localhost:5089/Veterinaria/Veterinario/Especialidad/{especialidad}
 ```
-![Json Consulta](./Imagenes/vetexespec.png){width=500px height=400px}
+![Json Consulta](./Imagenes/vetexespec.png)
 
 
  #### 🔴 Listar los medicamentos que pertenezcan a el laboratorio Genfar  ✅
 ```csharp
 http://localhost:5089/Veterinaria/Laboratorio/ConMedicamentos/{laboratorio}
 ```
-![Json Consulta](./Imagenes/medicxlabora.png){width=500px height=400px}
+![Json Consulta](./Imagenes/medicxlabora.png)
 
 
  #### 🔴 Mostrar las mascotas que se encuentren registradas cuya especie sea felina.  ✅
 ```csharp
 http://localhost:5089/Veterinaria/Especie/ConMascotas/{especie}
 ```
-![Json Consulta](./Imagenes/especieconmascota.png){width=500px height=400px}
+![Json Consulta](./Imagenes/especieconmascota.png)
 
 
  #### 🔴 Listar los propietarios y sus mascotas.  ✅
 ```csharp
 http://localhost:5089/Veterinaria/Propietario/ConMascotas
 ```
-![Json Consulta](./Imagenes/propietarconmascot.png){width=500px height=400px}
+![Json Consulta](./Imagenes/propietarconmascot.png)
 
 
  #### 🔴 Listar los medicamentos que tenga un precio de venta mayor a 50000  ✅
 ```csharp
 http://localhost:5089/Veterinaria/Medicamento/PrecioMayorA/{precio}
 ```
-![Json Consulta](./Imagenes/medicprecioMayorA.png){width=500px height=400px}
+![Json Consulta](./Imagenes/medicprecioMayorA.png)
 
 
  #### 🔴 Listar las mascotas que fueron atendidas por motivo de vacunacion en el primer trimestre del 2023  ✅
 ```csharp
 http://localhost:5089/Veterinaria/Mascota/AtendidasXMotivo/{motivo}/{anio}/{trimestre}
 ```
-![Json Consulta](./Imagenes/citaxmotivo.png){width=500px height=400px}
+![Json Consulta](./Imagenes/citaxmotivo.png)
 
 
 
@@ -93,40 +93,40 @@ http://localhost:5089/Veterinaria/Mascota/AtendidasXMotivo/{motivo}/{anio}/{trim
 ```csharp
   http://localhost:5089/Veterinaria/Especie/ConMascotas
   ```
-  ![Json Consulta](./Imagenes/totalMascotaxEspecie.png){width=500px height=400px}
+  ![Json Consulta](./Imagenes/totalMascotaxEspecie.png)
 
 
  #### 🔴 Listar todos los movimientos de medicamentos y el valor total de cada movimiento. ✅
 ```csharp
   http://localhost:5089/Veterinaria/Movimiento/ValorTotal
   ```
-  ![Json Consulta](./Imagenes/totalmovimiento.png){width=500px height=400px}
+  ![Json Consulta](./Imagenes/totalmovimiento.png)
 
   
  #### 🔴 Listar las mascotas que fueron atendidas por un determinado veterinario.  ✅
 ```csharp
   http://localhost:5089/Veterinaria/Veterinario/ConMascotasAtendidas/{nombreVeterinario}
   ```
-  ![Json Consulta](./Imagenes/mascotaxvetrinario.png){width=500px height=400px}
+  ![Json Consulta](./Imagenes/mascotaxvetrinario.png)
 
 
 #### 🔴 Listar los proveedores que me venden un determinado medicamento.  ✅
 ```csharp
   http://localhost:5089/Veterinaria/Medicamento/IncluyeProveedor/{medicamento}
   ```
-  ![Json Consulta](./Imagenes/proveedoresproducto.png){width=500px height=400px}
+  ![Json Consulta](./Imagenes/proveedoresproducto.png)
 
 
  #### 🔴 Listar las mascotas y sus propietarios cuya raza sea Golden Retriver  ✅
 ```csharp
   http://localhost:5089/Veterinaria/Raza/MascotaConPropietario/{raza}
   ```
-  ![Json Consulta](./Imagenes/mascotaxraza.png){width=500px height=400px}
+  ![Json Consulta](./Imagenes/mascotaxraza.png)
 
 
  #### 🔴 Listar la cantidad de mascotas que pertenecen a una raza  ✅
 ```csharp
   http://localhost:5089/Veterinaria/Raza/TotalMascotasPorRaza
 ```
-![Json Consulta](./Imagenes/totalmascotas.png){width=500px height=400px}
+![Json Consulta](./Imagenes/totalmascotas.png)
 
