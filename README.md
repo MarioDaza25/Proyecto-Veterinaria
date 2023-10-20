@@ -18,6 +18,26 @@ El proyecto de administración de veterinaria tiene como objetivo mejorar la efi
 4. El backend debe permitir realizar la paginacion en  las peticiones get de todos los controladores.
 5. Los controladores deben implementar 2 versiones diferentes (Query y Header)
 
+#### Ejecucion del Proyecto:
+Ingresamos a la careta API y appsettings.json
+Configurar Server, user, password y database segun la información de usuario en mysql.
+
+
+![Json settings](./Imagenes/db.png)
+Crear la migración con el siguiente comando en consola, ubicado en la raiz del proyecto. 
+```
+  dotnet ef migrations add InitialCreated --project .\Persistencia\ --startup-project .\API\ --output-dir .\Data\Migrations
+```
+
+Despues generamos el comando de actualizacion para enviar a la base de datos.
+```
+  dotnet ef database update --project .\Persistencia\ --startup-project .\API\
+```
+
+Ejecución de la aplicacion desde la raiz del proyecto utilizando swagger.
+```
+ dotnet watch run --project .\API\
+```
 #Esta es la implementacion de cada una de las consultas con su respectiva evidencia.
 
 # Consultas 🔍:paw_prints: 
