@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 [ApiVersion("1.0")]
 [ApiVersion("1.1")]
+[Authorize(Roles = "Empleado, Administrador, Gerente")]
 public class CitaController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +22,6 @@ public class CitaController : BaseApiController
     }
 
     [HttpGet]
-    [Authorize(Roles = "Empleado")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<CitaDto>>> Get()

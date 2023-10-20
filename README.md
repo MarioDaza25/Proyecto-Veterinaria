@@ -8,7 +8,7 @@ El desarrollo se realizará utilizando la tecnología NetCore Version 7.0, que p
 
 El proyecto de administración de veterinaria tiene como objetivo mejorar la eficiencia y la experiencia del cliente, al tiempo que facilita la gestión interna de la veterinaria. Se espera que este sistema contribuya positivamente al crecimiento y éxito del negocio.
 
-##```Requerimientos Funcionales```
+## Requerimientos Funcionales
 1. Autenticación y autorización:
     - El sistema debe implementar protección en los endpoints utilizando JWT (JSON Web Tokens). El token tiene una duracion de 1 minuto.
     - Se debe implementar refresh token.
