@@ -1,11 +1,15 @@
 using API.Dtos;
+using API.Dtos.DtosPost;
 using API.Helpers;
 using AutoMapper;
+using Dominio.Entidades;
 using Dominio.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
-
+[ApiVersion("1.0")]
+[ApiVersion("1.1")]
 public class EspecieController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -17,6 +21,17 @@ public class EspecieController : BaseApiController
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EspecieDto>>> Get()
+    {
+        var especies = await _unitOfWork.Especies.GetAllAsync();
+        return _mapper.Map<List<EspecieDto>>(especies);
+    }
+
+
+    [HttpGet]
+    [ApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Pager<EspecieDto>>> Get([FromQuery] Params especieParams)
@@ -49,21 +64,63 @@ public class EspecieController : BaseApiController
     {
         var mascotas = await _unitOfWork.Especies.MascotaXEspecie();
         return _mapper.Map<List<EspecieXRazaDto>>(mascotas);
-    } 
-
-
-    [HttpDelete("{nombreEspecie}")]
+    }
+    
+    
+    [HttpPost]
+    [Authorize(Roles = "Empleado")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Delete(string nombreEspecie)
+    public async Task<ActionResult<string>> Post(EspeciePDto especieDto)
     {
-        var especie = await _unitOfWork.Especies.GetByIdAsync(nombreEspecie);
+        var especie = _mapper.Map<Especie>(especieDto);
+        _unitOfWork.Especies.Add(especie);
+        await _unitOfWork.SaveAsync();
+        if (especie == null)
+        {
+            return BadRequest();
+        }
+        return "Especie Creada con Éxito!";
+    }
+
+    
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<string>> Put(int id,[FromBody] EspeciePDto especieDto)
+    {
+        if (especieDto == null|| id != especieDto.Id)
+        {
+            return BadRequest();
+        }
+        var especieExistente = await _unitOfWork.Especies.GetByIdAsync(id);
+
+        if (especieExistente == null)
+        {
+            return NotFound();
+        }
+        _mapper.Map(especieDto, especieExistente);
+        _unitOfWork.Especies.Update(especieExistente);
+        await _unitOfWork.SaveAsync();
+
+        return "Especie Actualizada con Éxito!";
+    } 
+     
+
+
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Administrador, Gerente")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var especie = await _unitOfWork.Especies.GetByIdAsync(id);
         if (especie == null)
         {
             return NotFound();
         }
         _unitOfWork.Especies.Remove(especie);
         await _unitOfWork.SaveAsync();
-        return NoContent();
+        return Ok(new { message = $"La Especie {especie.Nombre} se eliminó con éxito." });
     }
 }
